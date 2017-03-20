@@ -1,0 +1,22 @@
+.leaderboard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.match{
+  display:block;
+  margin-top:10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed #fff;
+}
+.match:hover{
+  background: rgba(255,255,255, 0.2);
+}
+.tag-winner{
+  font-weight:bold;
+  font-size: .8em;
+  color: #ff2fa4;
+}
