@@ -17,6 +17,10 @@
   border: 1px dashed white;
 }
 
+.title{
+  color: #5a2811;
+}
+
 .score-input input {
   padding: 10px;
   margin-bottom:10px;
@@ -101,7 +105,7 @@
   color: #fff109;
   padding: 10px;
 }
-@media (min-width: 660px) {
+@media (min-width: 750px) {
   .section-wrap{
     display: flex;
     flex-direction: row;

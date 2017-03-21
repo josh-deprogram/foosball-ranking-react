@@ -1,0 +1,9 @@
+.footer {
+  width: calc(100% - 40px);
+  height: calc(100% - 40px);
+  padding: 20px;
+  line-height: 60px;
+  color: #5a2811;
+  text-align: center;
+  background-color: #a67439;
+}

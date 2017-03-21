@@ -3,6 +3,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import moment from 'moment';
+import {TweenMax} from "gsap";
+
 import './style.css';
 
 class ScoreInput extends Component {
@@ -51,11 +53,11 @@ addMatchDetails(){
         teamArray1.push(inputfield.value);
   }
   for (let i = 0; i < this.state.team2.length; i++) { 
-      const inputfield = document.getElementById('team1_player_' + (i+1));
+      const inputfield = document.getElementById('team2_player_' + (i+1));
       if(inputfield.value != null || inputfield.value != '')
         teamArray2.push(inputfield.value);
   }
-  console.log(teamArray1, teamArray2)
+  console.log('teams - ', teamArray1, teamArray2)
 
   // Check for selected winner
   let winner = null;
@@ -83,7 +85,7 @@ addMatchDetails(){
   }
 
   // create temp array to duplicate state
-  const matches = this.state.matches;
+  const matches = this.props.results;
   matches.push({
       team1: teamArray1,
       team2: teamArray2,
@@ -96,10 +98,11 @@ addMatchDetails(){
   document.getElementById('team1_player_1').value = null;
   document.getElementById('team2_player_1').value = null;
   this.setState({
-    matches: matches,
     team1: [''],
     team2: ['']
   });
+  // Update Global app state
+  this.props.onUpdateResults(matches);
 }
 
 addTeamMember(team) {
@@ -119,6 +122,10 @@ addTeamMember(team) {
   }
 }
 
+componentDidMount(){
+  TweenMax.fromTo(this.refs.col2, .3, {autoAlpha:0}, {autoAlpha:1})
+}
+
 render() {
     return (
       <div className="score-input">
@@ -126,7 +133,7 @@ render() {
 
           <div className="section-wrap">
           
-          <section className="col-1">
+          <section className="col-1" ref='col2'>
             <h2 className="title">Add New Game:</h2>
             <div className='winnerTitle'>Winner:</div>
             <section>
@@ -181,9 +188,9 @@ render() {
               <div className='input-error'>{this.state.errormsg}</div>
           </section>
 
-          <section className="col-2">
-            <h2>Recent Games:</h2>
-            { this.state.matches.map((match, i)=>{
+          <section className="col-2" ref='col2'>
+            <h2 className="title">Recent Games:</h2>
+            { [...this.props.results].reverse().map((match, i)=>{
               return(
                 <div key={i} className='match'>
                   <div className='match-title color-blue'>Team 1 : {match.winner === 1 ? <span className='tag-winner'>WINNER</span> : null} 

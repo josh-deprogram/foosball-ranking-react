@@ -26,6 +26,11 @@ li {
   line-height: normal;
 }
 
+.nav-btn{
+  width: auto;
+  color: white;
+}
+
 @media (min-width: 350px) {
   .header-title{
     font-size: 1.5em;
@@ -38,4 +43,7 @@ li {
     font-size: 3em;
     font-weight: bold;
   }
+  .nav-btn{
+    width: 200px;
+  } 
 }

@@ -7,13 +7,14 @@ import {
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import HeaderNav from './components/header/header';
+import Footer from './components/footer/footer';
 import HomeView from './components/home/home-view';
 import InputView from './components/score-input/input-view';
-import LeaderView from './components/leaderboard/leader-view';
+import ResultsView from './components/leaderboard/leader-view';
+import moment from 'moment';
 import './style/App.css';
 
 // Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
 class App extends Component {
@@ -23,9 +24,30 @@ class App extends Component {
     super( props );
 
     this.state = {
-        results: [],
+        results: [
+           {
+              team1: ['Josh Freeman', 'Ronnie Roo'],
+              team2: ['Claudio Ranieri'],
+              winner: 1,
+              date: new moment()
+           }
+        ],
     }
  }
+
+  updateResults(results) {
+    this.setState({
+      results
+    })
+  }
+
+  resultsView() {
+    return (<ResultsView results={this.state.results} />)
+  }
+
+  inputView() {
+    return (<InputView results={this.state.results} onUpdateResults={this.updateResults.bind(this)} />)
+  }
 
   render() {
     return (
@@ -37,8 +59,10 @@ class App extends Component {
 
           <Route exact path="/" component={HomeView}/>
           <Route exact path="/home" component={HomeView}/>
-          <Route path="/input" component={InputView}/>
-          <Route path="/leaderboard" component={LeaderView}/>
+          <Route path="/input" component={this.inputView.bind(this)}/>
+          <Route path="/leaderboard" component={this.resultsView.bind(this)}/>
+
+          <Footer />
         </div>
       </Router>
     </MuiThemeProvider>
