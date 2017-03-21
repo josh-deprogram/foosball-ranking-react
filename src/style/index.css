@@ -4,6 +4,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: Montserrat;
+  overflow-x: hidden;
   overflow-y: scroll;
   background-image: url('http://devfloat.net/wp-content/uploads/2016/01/dark-soil-texture.jpg');
   background-color: #a67439;

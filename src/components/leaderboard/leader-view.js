@@ -5,6 +5,7 @@ import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import moment from 'moment';
+import Chart from 'chart.js'
 import {TweenMax} from "gsap";
 import './style.css';
 
@@ -19,6 +20,41 @@ class LeaderView extends Component {
  }
 
   componentDidMount(){
+    // Create Graph data
+    const ctx = document.getElementById("chart").getContext("2d");
+    const data = {
+        labels: this.playerNames,
+        datasets: [
+            {
+                label: "Player Wins",
+                // backgroundColor: [
+                //     'rgba(255, 99, 132, 0.2)',
+                //     'rgba(54, 162, 235, 0.2)',
+                //     'rgba(255, 206, 86, 0.2)',
+                //     'rgba(75, 192, 192, 0.2)',
+                //     'rgba(153, 102, 255, 0.2)',
+                //     'rgba(255, 159, 64, 0.2)'
+                // ],
+                // borderColor: [
+                //     'rgba(255,99,132,1)',
+                //     'rgba(54, 162, 235, 1)',
+                //     'rgba(255, 206, 86, 1)',
+                //     'rgba(75, 192, 192, 1)',
+                //     'rgba(153, 102, 255, 1)',
+                //     'rgba(255, 159, 64, 1)'
+                // ],
+                borderWidth: 1,
+                data: this.playerWins,
+            }
+        ]
+    };
+
+    const myBarChart = new Chart(ctx, {
+      type: 'bar',
+      data: data,
+      // options: options
+    });
+
     TweenMax.fromTo(this.refs.col1, .3, {autoAlpha:0}, {autoAlpha:1, delay:0.1})
     TweenMax.fromTo(this.refs.col2, .3, {autoAlpha:0}, {autoAlpha:1, delay:0.2})
   }
@@ -76,6 +112,7 @@ class LeaderView extends Component {
 
     // Calculate the number of games played by each
    // !TODO - this is messy as!, storing the win values in player objects would of been a better solution.
+   // Get rid of the for loops and use _
 
     for (let i = 0; i < results.length; i++) {
       for (let x = 0; x < results[i].team1.length; x++) {
@@ -93,6 +130,7 @@ class LeaderView extends Component {
 
     // Loop through all players, then assign wins if they where on the winning team.
     // !TODO - this is messy as!, storing the win values in player objects would of been a better solution.
+    // Get rid of the for loops and use _
     
     for (let w = 0; w < this.playerNames.length; w++) {
 
@@ -126,12 +164,13 @@ class LeaderView extends Component {
     const topPlayersOrdered = topPlayers.sort(function(a,b) {
       return a.won - b.won;
     })
-    // console.log('Top ', topPlayersOrdered)
-
+    
     return (
       <div className="leaderboard">
         <div className="content-inner">
-          
+          <div className='chart'><canvas id="chart"></canvas></div>
+        </div>
+        <div className="content-inner">
           <div className="section-wrap">
             <section className="col-1" ref='col1'>
               <h2 className="title">Stats:</h2>

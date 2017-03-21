@@ -1,7 +1,13 @@
 .leaderboard {
-  display: flex;
+  /*display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center;*/
+}
+
+.chart{
+    min-width: 50%;
+    min-height: 300px;
+    display: none;
 }
 
 .stats{
@@ -31,4 +37,10 @@
 .won{
   float: right;
   opacity: 0.4;
+}
+
+@media (min-width: 600px) {
+  .chart{
+    display: block;
+  }
 }
