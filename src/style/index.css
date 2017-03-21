@@ -5,7 +5,9 @@ body {
   padding: 0;
   font-family: Montserrat;
   overflow-y: scroll;
+  background-image: url('http://devfloat.net/wp-content/uploads/2016/01/dark-soil-texture.jpg');
   background-color: #a67439;
+  /*background-size: 100% 100%;*/
 }
 
 .color-green {
@@ -20,6 +22,10 @@ a:link, a:active, a:visited {
 a:hover {
   color: #5a2b19;
 }
+
+.color-grey{
+  color: #c3c3c3;
+} 
 
 .color-red{
   color: #e45354;

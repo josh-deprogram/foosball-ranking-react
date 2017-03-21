@@ -26,7 +26,7 @@ class App extends Component {
     this.state = {
         results: [
            {
-              team1: ['Josh Freeman', 'Ronnie Roo'],
+              team1: ['Josh Freeman'],
               team2: ['Claudio Ranieri'],
               winner: 1,
               date: new moment()
@@ -57,7 +57,7 @@ class App extends Component {
 
           <HeaderNav />
 
-          <Route exact path="/" component={HomeView}/>
+          <Route exact path="/" component={this.inputView.bind(this)}/>
           <Route exact path="/home" component={HomeView}/>
           <Route path="/input" component={this.inputView.bind(this)}/>
           <Route path="/leaderboard" component={this.resultsView.bind(this)}/>

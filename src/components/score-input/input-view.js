@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+
 import moment from 'moment';
 import {TweenMax} from "gsap";
 
@@ -15,8 +16,8 @@ class ScoreInput extends Component {
 
    /* // Player Model
    {
-      team1: '',
-      team2: '',
+      team1: [''],
+      team2: [''],
       winner: null,
       date: moment
     }
@@ -40,8 +41,6 @@ class ScoreInput extends Component {
 
 
 addMatchDetails(){
-  const p1 = '' // this.refs.player1.value;
-  const p2 = '' //this.refs.player2.value;
   
   // Get all player values per team.
   let teamArray1 = [],
