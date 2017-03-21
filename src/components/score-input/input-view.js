@@ -123,7 +123,8 @@ addTeamMember(team) {
 }
 
 componentDidMount(){
-  TweenMax.fromTo(this.refs.col2, .3, {autoAlpha:0}, {autoAlpha:1})
+    TweenMax.fromTo(this.refs.col1, .3, {autoAlpha:0}, {autoAlpha:1, delay:0.1})
+    TweenMax.fromTo(this.refs.col2, .3, {autoAlpha:0}, {autoAlpha:1, delay:0.2})
 }
 
 render() {
@@ -133,7 +134,7 @@ render() {
 
           <div className="section-wrap">
           
-          <section className="col-1" ref='col2'>
+          <section className="col-1" ref='col1'>
             <h2 className="title">Add New Game:</h2>
             <div className='winnerTitle'>Winner:</div>
             <section>
@@ -155,7 +156,7 @@ render() {
               }
               <RaisedButton 
                 backgroundColor='#2c9ffb'
-                className='add-member' label="Add Member" onTouchTap={this.addTeamMember.bind(this, 1)}/>
+                className='add-member bounce' label="Add Member" onTouchTap={this.addTeamMember.bind(this, 1)}/>
             </section>
 
             <section style={{marginTop:20}}>
@@ -179,12 +180,12 @@ render() {
               }
               <RaisedButton 
                 backgroundColor='#e45354'
-                className='add-member' label="Add Member" onTouchTap={this.addTeamMember.bind(this, 2)}/>
+                className='add-member bounce' label="Add Member" onTouchTap={this.addTeamMember.bind(this, 2)}/>
               </section>
 
             <RaisedButton 
               backgroundColor='#23f686'
-              className='input-submit' onTouchTap={this.addMatchDetails.bind(this)} label='Submit Game Details'/>
+              className='input-submit bounce' onTouchTap={this.addMatchDetails.bind(this)} label='Submit Game Details'/>
               <div className='input-error'>{this.state.errormsg}</div>
           </section>
 

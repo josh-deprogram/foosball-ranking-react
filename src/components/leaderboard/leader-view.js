@@ -15,6 +15,11 @@ class LeaderView extends Component {
     }
  }
 
+  componentDidMount(){
+    TweenMax.fromTo(this.refs.col1, .3, {autoAlpha:0}, {autoAlpha:1, delay:0.1})
+    TweenMax.fromTo(this.refs.col2, .3, {autoAlpha:0}, {autoAlpha:1, delay:0.2})
+  }
+
   render() {
 
     const {results} = this.state;
@@ -38,11 +43,11 @@ class LeaderView extends Component {
             <section className="col-1" ref='col1'>
               <h2 className="title">Stats:</h2>
               <div className='stats'>
-                <div>Number of games played: {results.length}</div>
-                <div>Team 1 Wins: {win_t1}</div>
-                <div>Team 2 Wins: {win_t2}</div>
-                <div>Number of players: </div>
-                <div>Most Valuable Player: </div>
+                <div className='stat-title'>Number of games played: <span className='stat-count'>{results.length}</span></div>
+                <div className='stat-title'>Team 1 Wins: <span className='stat-count'>{win_t1}</span></div>
+                <div className='stat-title'>Team 2 Wins: <span className='stat-count'>{win_t2}</span></div>
+                <div className='stat-title'>Number of players: <span className='stat-count'></span></div>
+                <div className='stat-title'>Most Valuable Player: <span className='stat-count'></span></div>
               </div>
     
                <h2 className="title">Filter:</h2>

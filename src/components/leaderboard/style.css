@@ -8,6 +8,14 @@
   text-align: left;
 }
 
+.stat-title{
+  font-weight: bold;
+}
+.stat-count {
+  font-weight: normal;
+  color: white;
+}
+
 .match{
   display:block;
   margin-top:10px;
