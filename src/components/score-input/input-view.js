@@ -24,14 +24,6 @@ class ScoreInput extends Component {
    */
       
     this.state = {
-        matches: [
-           {
-              team1: ['Josh Freeman', 'Ronnie Roo'],
-              team2: ['Claudio Ranieri'],
-              winner: 1,
-              date: new moment()
-           }
-        ],
         team1: [''],
         team2: [''],
         results: [],
@@ -56,7 +48,6 @@ addMatchDetails(){
       if(inputfield.value != null || inputfield.value != '')
         teamArray2.push(inputfield.value);
   }
-  console.log('teams - ', teamArray1, teamArray2)
 
   // Check for selected winner
   let winner = null;

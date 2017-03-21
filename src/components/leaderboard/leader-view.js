@@ -13,7 +13,8 @@ class LeaderView extends Component {
   constructor ( props ) {
     super( props );
     this.state = {
-      results: props.results
+      results: props.results,
+      playerFilter: ''
     }
  }
 
@@ -22,16 +23,29 @@ class LeaderView extends Component {
     TweenMax.fromTo(this.refs.col2, .3, {autoAlpha:0}, {autoAlpha:1, delay:0.2})
   }
 
+  handlePlayerChange(ev, val){
+    const value = this.playerNames[val]
+    console.log('New Value', value);
+    this.setState({
+      playerFilter: value
+    })
+  }
+
   render() {
 
     const {results} = this.state;
     let win_t1 = 0;
     let win_t2 = 0;
     let mvp = '';
-    let playerNames = [];
+    
+    this.playerNames = [];
+    this.playerPlayed = [];
+    this.playerWins = [];
+    let topPlayers = this.playerNames;
     let currentPlayer = '';
     let currentPlayerPlayed = 0;
-    
+    let currentPlayerWins = 0;
+
     // calculate wins
     for(let i=0; i < results.length; i++){
       if(results[i].winner === 1){
@@ -44,18 +58,71 @@ class LeaderView extends Component {
     // calculate players
     for (let p = 0; p < results.length; p++) {
       for (let r = 0; r < results[p].team1.length; r++) {
-        const inArrayT1 = playerNames.indexOf(results[p].team1[r])
-        if(inArrayT1 === -1 && results[p].team1[r] != '') playerNames.push(results[p].team1[r]);
+        const inArrayT1 = this.playerNames.indexOf(results[p].team1[r]);
+        if(inArrayT1 === -1 && results[p].team1[r] != '') {
+          this.playerNames.push(results[p].team1[r]);
+          this.playerWins.push(0);
+          this.playerWins.push(0);
+        };
       }
       for (let t = 0; t < results[p].team2.length; t++) {
-        const inArrayT2 = playerNames.indexOf(results[p].team2[t])
-        if(inArrayT2 === -1 && results[p].team2[t] != '') playerNames.push(results[p].team2[t]);
+        const inArrayT2 = this.playerNames.indexOf(results[p].team2[t])
+        if(inArrayT2 === -1 && results[p].team2[t] != '') {
+          this.playerNames.push(results[p].team2[t])
+          this.playerWins.push(0);
+      };
       }
     }
 
-    // console.log('players.. ', playerNames)
-    // calculate MVP
+    // Calculate the number of games played by each
+   // !TODO - this is messy as!, storing the win values in player objects would of been a better solution.
+
+    for (let i = 0; i < results.length; i++) {
+      for (let x = 0; x < results[i].team1.length; x++) {
+        if(results[i].team1[x] === this.state.playerFilter) {
+          currentPlayerPlayed = currentPlayerPlayed + 1
+        }
+      }
+
+      for (let y = 0; y < results[i].team2.length; y++) {
+          if(results[i].team2[y] === this.state.playerFilter) {
+            currentPlayerPlayed = currentPlayerPlayed + 1
+          }
+      }
+    }
+
+    // Loop through all players, then assign wins if they where on the winning team.
+    // !TODO - this is messy as!, storing the win values in player objects would of been a better solution.
     
+    for (let w = 0; w < this.playerNames.length; w++) {
+
+      for (let i = 0; i < results.length; i++) {
+
+        for (let x = 0; x < results[i].team1.length; x++) {
+          if(results[i].winner === 1  && this.playerNames[w] === results[i].team1[x]) {
+            this.playerWins[w] = this.playerWins[w] + 1;
+          }         
+        }
+
+        for (let y = 0; y < results[i].team2.length; y++) {
+          if(results[i].winner === 2  && this.playerNames[w] === results[i].team2[y]) {
+            this.playerWins[w] = this.playerWins[w] + 1;
+          }   
+        }
+      }
+      
+      const playerPostion = this.playerNames.indexOf(this.state.playerFilter)
+      currentPlayerWins = this.playerWins[playerPostion];
+
+      // Arrange Players into Top down order of Rank
+      // for (let t = 0; t < this.playerNames.length; t++) {
+      //   topPlayers.push({
+      //     name:this.playerNames[t],
+      //     won:this.playerWins[t],
+      //   })
+      // }
+      
+    }
 
     return (
       <div className="leaderboard">
@@ -65,29 +132,35 @@ class LeaderView extends Component {
             <section className="col-1" ref='col1'>
               <h2 className="title">Stats:</h2>
               <div className='stats'>
-                <div className='stat-title'>Number of games played: <span className='stat-count'>{results.length}</span></div>
+                <div className='stat-title'>Total games played: <span className='stat-count'>{results.length}</span></div>
                 <div className='stat-title'>Team 1 Wins: <span className='stat-count'>{win_t1}</span></div>
                 <div className='stat-title'>Team 2 Wins: <span className='stat-count'>{win_t2}</span></div>
-                <div className='stat-title'>Number of players: <span className='stat-count'>{playerNames.length}</span></div>
-                <div className='stat-title'>Most Valuable Player: <span className='stat-count'>{mvp}</span></div>
+                <div className='stat-title'>Number of players: <span className='stat-count'>{this.playerNames.length}</span></div>
+                <div className='stat-title'>Top Players: <span className='stat-count'>{mvp}</span></div>
+
               </div>
     
-               <h2 className="title" style={{marginTop:40}}>Filter:</h2>
+               <h2 className="title" style={{marginTop:40}}>Filter Player:</h2>
 
                <SelectField
-                  floatingLabelText="Player"
-                  value={this.state.value}
-                  onChange={this.handleChange}
+                  floatingLabelText=""
+                  label={'Choose Player'}
+                  floatingLabelStyle={{textAlign:'left'}}
+                  onChange={this.handlePlayerChange.bind(this)}
                 >
                 {
-                  playerNames.map((player, i)=>{
+                  this.playerNames.map((player, i)=>{
                     return(<MenuItem key={i} value={i} primaryText={player} />)
                   })
                 } 
                </SelectField>
-
-               <div className={'stat-player'}>{currentPlayer}</div>
-               <div className={'stat-played'}>{currentPlayerPlayed}</div>
+               { this.state.playerFilter !== '' ?
+               <div className='stats'>
+                <div className={'stat-title stat-player'}>Name: <span className='stat-count'>{this.state.playerFilter}</span></div>
+                <div className={'stat-title stat-played'}>Played: <span className='stat-count'>{currentPlayerPlayed}</span></div>
+                <div className={'stat-title stat-played'}>Won: <span className='stat-count'>{currentPlayerWins}</span></div>
+               </div>
+               : null }
             </section>
 
             <section className="col-2" ref='col2'>
