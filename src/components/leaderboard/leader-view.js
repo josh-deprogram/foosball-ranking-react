@@ -18,6 +18,17 @@ class LeaderView extends Component {
   render() {
 
     const {results} = this.state;
+    let win_t1 = 0;
+    let win_t2 = 0;
+
+    for(let i=0; i < results.length; i++){
+      if(results[i].winner === 1){
+        win_t1 = win_t1 + 1;
+      } else {
+        win_t2 = win_t2 + 1;
+      }
+    }
+    
 
     return (
       <div className="leaderboard">
@@ -28,9 +39,13 @@ class LeaderView extends Component {
               <h2 className="title">Stats:</h2>
               <div className='stats'>
                 <div>Number of games played: {results.length}</div>
-                <div>Total number of games played: {}</div>
+                <div>Team 1 Wins: {win_t1}</div>
+                <div>Team 2 Wins: {win_t2}</div>
+                <div>Number of players: </div>
+                <div>Most Valuable Player: </div>
               </div>
-               <h3 className="title">Filter:</h3>
+    
+               <h2 className="title">Filter:</h2>
             </section>
 
             <section className="col-2" ref='col2'>
