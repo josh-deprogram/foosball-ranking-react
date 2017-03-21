@@ -41,7 +41,7 @@ class LeaderView extends Component {
     this.playerNames = [];
     this.playerPlayed = [];
     this.playerWins = [];
-    let topPlayers = this.playerNames;
+    let topPlayers = [];
     let currentPlayer = '';
     let currentPlayerPlayed = 0;
     let currentPlayerWins = 0;
@@ -113,16 +113,20 @@ class LeaderView extends Component {
       
       const playerPostion = this.playerNames.indexOf(this.state.playerFilter)
       currentPlayerWins = this.playerWins[playerPostion];
-
-      // Arrange Players into Top down order of Rank
-      // for (let t = 0; t < this.playerNames.length; t++) {
-      //   topPlayers.push({
-      //     name:this.playerNames[t],
-      //     won:this.playerWins[t],
-      //   })
-      // }
-      
     }
+
+     // Arrange Players into Top down order of Rank
+    for (var i = 0; i < this.playerNames.length; i++) {
+      topPlayers.push({
+        name: this.playerNames[i],
+        won: this.playerWins[i]
+      })
+    }
+
+    const topPlayersOrdered = topPlayers.sort(function(a,b) {
+      return a.won - b.won;
+    })
+    // console.log('Top ', topPlayersOrdered)
 
     return (
       <div className="leaderboard">
@@ -136,7 +140,14 @@ class LeaderView extends Component {
                 <div className='stat-title'>Team 1 Wins: <span className='stat-count'>{win_t1}</span></div>
                 <div className='stat-title'>Team 2 Wins: <span className='stat-count'>{win_t2}</span></div>
                 <div className='stat-title'>Number of players: <span className='stat-count'>{this.playerNames.length}</span></div>
-                <div className='stat-title'>Top Players: <span className='stat-count'>{mvp}</span></div>
+                <div className='stat-title'>Top (5) Players: 
+                  {
+                    [...topPlayersOrdered].reverse().map((player, i)=>{
+                      if(i > 4) { return false }
+                      return(<div className='stat-count' key={i}>{i+1} . {player.name} <div className='won'>won {player.won}</div></div>)
+                    })
+                  }
+                  <span className='stat-count'>{mvp}</span></div>
 
               </div>
     
