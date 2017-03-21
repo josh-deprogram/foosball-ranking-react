@@ -3,7 +3,8 @@ import {
   BrowserRouter as Router,
   Route,
   Link
-} from 'react-router-dom'
+} from 'react-router-dom';
+import RaisedButton from 'material-ui/RaisedButton';
 import './style.css';
 
 class App extends Component {
@@ -13,8 +14,8 @@ class App extends Component {
         <div className='header-title'>Foosball Ranking System</div>
         <ul>
             {/*<li style={{marginRight:30}}><Link to="/home">Home</Link></li>*/}
-            <li style={{marginRight:30}}><Link to="/input">Score Input</Link></li>
-            <li><Link to="/leaderboard">Leaderboard</Link></li>
+            <li style={{marginRight:30}}><Link to="/input"><RaisedButton backgroundColor='#23f686' label="Game Input" /></Link></li>
+            <li><Link to="/leaderboard"><RaisedButton backgroundColor='#23f686' label="Results" /></Link></li>
         </ul>
       </div>
     );

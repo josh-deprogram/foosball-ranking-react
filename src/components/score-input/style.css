@@ -4,6 +4,19 @@
   justify-content: center;
 }
 
+.section-wrap{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  max-width:750px;
+}
+
+.col-1, .col-2 {
+  padding: 20px;
+  padding-bottom: 40px;
+  border: 1px dashed white;
+}
+
 .score-input input {
   padding: 10px;
   margin-bottom:10px;
@@ -17,12 +30,45 @@
 .score-input .radio {
   width: 40px;
   height: 40px;
+  margin-left: 214px;
   line-height: 40px;
   transform: translateY(14px);
 }
 
+.score-input .add-member {
+  width: 255px;
+  margin-left: 0px;
+  margin-top:10px;
+  border-radius: 10px;
+  outline: none;
+}
+
+.score-input .input-submit {
+  width:245px;
+  margin-top:40px;
+}
+
+.match-title{
+  margin-bottom:10px;
+  font-weight: bold;
+}
+.team-member{
+  color: white;
+  font-weight: normal;
+  padding-right: 10px;
+}
+
+.match-date{
+  color: #40a363;
+}
+
+.team-head {
+  font-weight: bold;
+  margin-bottom:10px;
+}
+
 .winnerTitle{
-  margin-left: 257px;
+  margin-left: 245px;
   font-size: 10px;
   transform: translateY(10px);
 }
@@ -37,13 +83,28 @@
   margin-bottom: 20px;
   padding: 10px;
   padding-bottom: 20px;
+  text-align: left;
   border-bottom: 1px dashed #fff;
+  transition: background .2s ease;
 }
 .match:hover{
   background: rgba(255,255,255, 0.2);
 }
 .tag-winner{
+  float: right;
   font-weight:bold;
   font-size: .8em;
   color: #ff2fa4;
+}
+
+.input-error{
+  color: #fff109;
+  padding: 10px;
+}
+@media (min-width: 660px) {
+  .section-wrap{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
 }

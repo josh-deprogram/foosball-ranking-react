@@ -19,3 +19,15 @@ a:link, a:active, a:visited {
 a:hover {
   color: #5a2b19;
 }
+
+.color-red{
+  color: #e45354;
+}
+
+.color-blue{
+  color:#2c9ffb;
+}
+
+.color-green {
+  color: #23f686;
+}
